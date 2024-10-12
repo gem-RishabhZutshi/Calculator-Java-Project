@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        maven 'maven' // Adjust based on your Maven configuration in Jenkins
+        maven 'maven' 
     }
 
     environment {
@@ -29,7 +29,7 @@ pipeline {
         stage('Code Coverage with JaCoCo') {
             steps {
                 // Run tests with JaCoCo agent add jacoco dependency in pom.xml
-                 // Run Xvfb to simulate a display
+                // Run Xvfb to simulate a display
                 script {
                     // Start Xvfb in the background
                     sh 'Xvfb :99 -screen 0 1920x1080x24 &'
@@ -60,7 +60,7 @@ pipeline {
 
         stage('OWASP Dependency-Check') {
             steps {
-                // Use withCredentials to inject the API key into the pipeline
+                // Run OWASP Dependency check scan
                 dependencyCheck additionalArguments: ''' 
                     -o './'
                     -s './'
@@ -74,7 +74,7 @@ pipeline {
 
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('SonarQubeServer') { // Replace with the name you used in Jenkins configuration
+                withSonarQubeEnv('SonarQubeServer') { 
                     sh 'mvn sonar:sonar -Dsonar.projectKey=java-backend'
                 }
             }
@@ -92,7 +92,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                // Deployment steps can be added here
+                
                 echo "Deploying application..."
             }
         }
