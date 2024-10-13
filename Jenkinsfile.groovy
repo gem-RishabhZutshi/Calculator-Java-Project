@@ -67,7 +67,10 @@ pipeline {
                     -f 'ALL' 
                     --prettyPrint''', odcInstallation: 'OWASP-Dependency-Check', nvdCredentialsId: 'nvdCredentialsId' 
         
-                dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+                // Publish Dependency-Check report and fail if at least 1 critical vulnerability is found
+                dependencyCheckPublisher pattern: 'dependency-check-report.xml', 
+                    failedTotalCritical: 1,    // Fail build if at least 1 total critical vulnerability is found
+                    stopBuild: true            // Stop the build if the threshold is violate
                 
            }
         }
