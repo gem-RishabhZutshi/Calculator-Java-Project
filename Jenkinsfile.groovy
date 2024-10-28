@@ -95,10 +95,37 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                
-                echo "Deploying the application to AWS"
+                script {
+                    // Define variables for ECR repository and Docker image
+                    def accountid = 'accountid'
+                    def ecrRepo = 'ecrRepo'
+                    def ecrRepoUri = '${accountid}.dkr.ecr.region.amazonaws.com/${ecrRepo}'
+                    def imageTag = "${env.GIT_COMMIT}" // Tag with the latest commit hash
+
+                    // Step 1: Build Docker image
+                    sh 'docker build -t my-java-app .'
+
+                    // Step 2: Authenticate to Amazon ECR
+                    sh '''
+                        aws ecr get-login-password --region region | docker login --username AWS --password-stdin ${ecrRepoUri}
+                    '''
+
+                    // Step 3: Tag Docker image with ECR repository URI
+                    sh "docker tag my-java-app:${imageTag} ${ecrRepoUri}:${imageTag}"
+
+                    // Step 4: Push Docker image to ECR
+                    sh "docker push ${ecrRepoUri}:${imageTag}"
+
+                    // Step 5: Deploy to EKS
+                    sh """
+                        aws eks update-kubeconfig --region region --name your-cluster-name
+                        kubectl set image deployment/my-deployment-name my-container=${ecrRepoUri}:${imageTag} --record
+                    """
+                }
             }
-        }
+       }
+
+
     }
 
     post {
