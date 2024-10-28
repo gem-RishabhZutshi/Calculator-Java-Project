@@ -16,7 +16,7 @@ FROM tomcat:9.0
 RUN rm -rf /usr/local/tomcat/webapps/*
 
 # Copy the WAR file from the build stage to the Tomcat webapps directory
-COPY --from=build /app/target/your-app.war /usr/local/tomcat/webapps/
+COPY --from=build /app/target/*.war /usr/local/tomcat/webapps/
 
 # Optionally, expose ports if not using the default
 EXPOSE 8080
