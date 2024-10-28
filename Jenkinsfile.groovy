@@ -8,6 +8,7 @@ pipeline {
     environment {
         // Define SonarQube environment variables
         SONAR_SCANNER_OPTS = '-Xmx512m' // Memory limit for the scanner
+        ENVIRONMENT = "${env.BRANCH_NAME}"
     }
 
     stages {
@@ -70,8 +71,7 @@ pipeline {
                 // Publish Dependency-Check report and fail if at least 1 critical vulnerability is found
                 dependencyCheckPublisher pattern: 'dependency-check-report.xml', 
                     failedTotalCritical: 1,    // Fail build if at least 1 total critical vulnerability is found
-                    stopBuild: true            // Stop the build if the threshold is violate
-                
+                    stopBuild: true            // Stop the build if the threshold is violate                
            }
         }
 
