@@ -15,7 +15,7 @@ docker build --rm -t $NAME:$COMMIT_HASH .
 aws ecr get-login-password --region $REGION | docker login --username AWS --password-stdin $ECR_URL
 
 # tag and push image using latest
-docker tag $NAME $ECR_URL/$NAME:$COMMIT_HASH
+docker tag $NAME:$COMMIT_HASH $ECR_URL/$NAME:$COMMIT_HASH
 docker push $ECR_URL/$NAME:$COMMIT_HASH
 
 aws ecs update-service --cluster ${CLUSTER} --region ${REGION} --service $NAME-Service --force-new-deployment
