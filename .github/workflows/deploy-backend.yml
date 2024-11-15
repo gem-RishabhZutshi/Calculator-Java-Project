@@ -28,5 +28,5 @@ jobs:
 
       - name: Deploy
         run: |
-          bash ./scripts/deploy.sh Demo-VPC-Backend-APP
+          bash ./scripts/deploy.sh demo-vpc-backend-app
 

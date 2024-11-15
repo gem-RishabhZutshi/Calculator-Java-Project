@@ -3,8 +3,8 @@
 NAME=$1
 AWS_ACCOUNT=${2:-593793025658}
 REGION=ap-south-1
-ECR_URL="$AWS_ACCOUNT.dkr.ecr.$REGION.amazonaws.com/demo-vpc-backend-app"
-CLUSTER="arn:aws:ecs:$REGION:$AWS_ACCOUNT:cluster/$NAME"
+ECR_URL="$AWS_ACCOUNT.dkr.ecr.$REGION.amazonaws.com"
+CLUSTER="arn:aws:ecs:$REGION:$AWS_ACCOUNT:cluster/Demo-VPC-Backend-APP"
 
 COMMIT_HASH=`date +%Y%m%d%H%M%S`
 echo $COMMIT_HASH
