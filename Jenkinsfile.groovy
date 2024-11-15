@@ -30,7 +30,7 @@ pipeline {
         stage('Code Coverage with JaCoCo') {
             steps {
                 // Run tests with JaCoCo agent add jacoco dependency in pom.xml
-                // Run Xvfb to simulate a display
+                // Run Xvfb to simulate a display-
                 script {
                     // Start Xvfb in the background
                     sh 'Xvfb :99 -screen 0 1920x1080x24 &'
