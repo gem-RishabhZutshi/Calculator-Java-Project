@@ -4,7 +4,7 @@ NAME=$1
 AWS_ACCOUNT=${2:-593793025658}
 REGION="ap-south-1"
 ECS="ecommerce-backend-dev-service"
-ECR_URL="$AWS_ACCOUNT.dkr.ecr.$REGION.amazonaws.com/ecommerce-backend-dev"
+ECR_URL="$AWS_ACCOUNT.dkr.ecr.$REGION.amazonaws.com"
 CLUSTER="arn:aws:ecs:$REGION:$AWS_ACCOUNT:cluster/ecommerce-backend-dev"
 
 COMMIT_HASH=`date +%Y%m%d%H%M%S`
